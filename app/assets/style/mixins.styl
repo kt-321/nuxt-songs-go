@@ -1,0 +1,45 @@
+/**
+ * レスポンシブ
+ */
+wide() {
+    @media screen and (max-width: $wide-width) {
+        {block}
+    }
+}
+pc() {
+    @media screen and (max-width: $pc-width) {
+        {block}
+    }
+}
+tablet() {
+    @media screen and (max-width: $tab-width) {
+        {block}
+    }
+}
+sp() {
+    @media screen and (max-width: $sp-width) {
+        {block}
+    }
+}
+tiny() {
+    @media screen and (max-width: $tiny-width) {
+        {block}
+    }
+}
+/**
+ * flexレイアウト
+ * @var justify-content space-between|space-around
+ * @var flow row nowrap|row wrap|column nowrap|column wrap
+ * @var align stretch|center|start|end|flex-start|flex-end|baseline
+ */
+flex-box(justify-content=space-between, flow=row nowrap, align=stretch) {
+    display: flex
+    justify-content: justify-content
+    flex-flow: flow
+    align-items: align
+}
+// 枠線を引く
+box-border(color=$border-color, raidus=0) {
+    border: 1px solid color
+    border-radius: radius
+}
