@@ -4,14 +4,12 @@
             <c-error :errors.sync="errors" />
             <c-labeled-item label="メールアドレス" required>
                 <input v-model="username" type="text" />
-                <!-- <input v-model="form.email" type="text" /> -->
             </c-labeled-item>
             <c-labeled-item label="パスワード" required>
                 <input v-model="password" type="password" />
             </c-labeled-item>
             <c-button label="ログイン" tiny success @c-click="login" />
         </m-form>
-        <!-- <c-button label="ミドルウェアテスト" tiny success @c-click="test"></c-button> -->
     </m-page>
 </template>
 
@@ -77,11 +75,6 @@ export default class PageSignin extends Vue {
             this.errors.push(e)
         }
     }
-
-    // test() {
-    //     const test = this.$axios.$get('/api/test')
-    //     console.log(test)
-    // }
 
     mounted() {
         if(!this.$store.getters['user/isGuest']) {

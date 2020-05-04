@@ -27,11 +27,8 @@ export default async function({ app, route, redirect, store, $axios, $cookies }:
     if (credential) {
         store.dispatch('user/setToken', credential)
         const user = await $axios.$get('/api/user')
-        // console.log(user)
         store.dispatch('user/setUser', user)
-        const storeUser = store.getters['user/user']
-        // console.log
-        // console.log("storeUser")
+        // const storeUser = store.getters['user/user']
         await store.dispatch('user/sync', user)
         // await store.dispatch('song/sync')
     } else {

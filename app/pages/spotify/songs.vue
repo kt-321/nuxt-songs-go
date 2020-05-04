@@ -69,43 +69,13 @@ export default class PageSpotifySongs extends Vue {
     results: any = []
 
     async tracks() {
-        // 認証コード取得時
-        // if (this.$route.params.code) {
-        //     console.log(this.$route.params.code)
-        // }
-        // console.log("this.$route.query.code")
-        // // 認証コード
-        // console.log(this.$route.query.code)
-        // const code = {
-        //     code: this.$route.query.code
-        // }
-
-        // console.log(code)
-
-        // if(this.$route.query.code) {
-        //     const responseToken = await this.$axios.$post('/api/getToken', code).catch((e) => {
-        //         console.log('アクセストークン取得失敗')
-        //     })
-        //     console.log(responseToken)
-        // }
-        
         // クッキーを取得
         let credential = this.$cookies.get('__spotify-token__')
         
         if (!credential) {
             await this.token()
             credential = this.$cookies.get('__spotify-token__')
-            // 認証コードを送ってアクセストークン取得
-            // const responseToken = await this.$axios.$post('/api/oauth', 'AQCR_F8InGMbw4HUvFbeVlRFv7Scxg1L2-uAxouCSL9e1F_w48jB6psQoC2blUggtogst104PCh7zYZyuG4eLnKvwwKjwFrm-sB5ubhblV_9ihOFbyJw7FvUQulhmccA5Y9eBtrOOKc6M-BVPP9xKQ9X5gqMJryUnpjCvLtY3Qi8Tx_OOEVaw-t7TU93bTfUfOsdNv6tWQuK9IQ').catch((e) => {
-            // const responseToken = await this.$axios.$post('/api/oauth', credential).catch((e) => {
-            // const responseToken = await this.$axios.$post('/api/getToken', credential).catch((e) => {
-            //     console.log('アクセストークン取得失敗')
-            // })
-            // console.log(responseToken)
-            // } else {
         }
-        // responseToken = responseToken.accessToken
-        // const title = {
         this.title = {
             title: this.title.title,
             token: credential
@@ -119,7 +89,6 @@ export default class PageSpotifySongs extends Vue {
         console.log(response.tracks.tracks.items)
         this.results = response.tracks.tracks.items
         console.log(this.results)
-            // console.log(response.tracks)
         }
     }
 </script>
