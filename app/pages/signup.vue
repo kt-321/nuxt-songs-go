@@ -2,9 +2,9 @@
     <m-page class="page-signup" title="ユーザー登録">
         <m-form class="c-signup-form">
             <c-error :errors.sync="errors" />
-            <c-labeled-item label="お名前" required>
+            <!-- <c-labeled-item label="お名前" required>
                 <input v-model="form.name" type="text" />
-            </c-labeled-item>
+            </c-labeled-item> -->
             <c-labeled-item label="メールアドレス" required>
                 <input v-model="form.email" type="text" />
             </c-labeled-item>
@@ -30,7 +30,7 @@ import { ApplicationError, BadRequest } from '~/types/error'
 export default class PageSignup extends Vue {
     errors: Array<ApplicationError> = []
     form = {
-        name: '',
+        // name: '',
         email: '',
         password: '',
         password_confirmation: ''
@@ -40,9 +40,9 @@ export default class PageSignup extends Vue {
         try {
             this.errors = []
             // バリデーション
-            if (this.form.name.length === 0) {
-                this.errors.push(new BadRequest('名前が入力されていません'))
-            }
+            // if (this.form.name.length === 0) {
+            //     this.errors.push(new BadRequest('名前が入力されていません'))
+            // }
             if (this.form.email.length === 0) {
                 this.errors.push(new BadRequest('メールアドレスが入力されていません'))
             }
@@ -51,6 +51,9 @@ export default class PageSignup extends Vue {
             }
             if (this.form.password_confirmation.length === 0) {
                 this.errors.push(new BadRequest('パスワード（確認）が入力されていません'))
+            }
+            if (this.form.password !== this.form.password_confirmation) {
+                this.errors.push(new BadRequest('パスワードが一致しません'))
             }
             if (this.errors.length === 0) {
                 const response = await this.$axios.$post('/api/signup', this.form).catch((e) => {
@@ -61,7 +64,8 @@ export default class PageSignup extends Vue {
                     path: '/',
                 })
                 // ダッシュボードに遷移
-                this.$router.replace('/song')
+                // this.$router.replace('/song')
+                this.$router.replace('/dashboard')
             }
         } catch (e) {
             this.errors.push(e)

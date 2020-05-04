@@ -24,13 +24,13 @@
                         <th>性別</th>
                         <td>{{ user.gender | genderFormat }}</td>
                     </tr>
-                    <tr v-if="user.favorite_music_age">
+                    <tr v-if="user.favoriteMusicAge">
                         <th>好きな音楽の年代</th>
-                        <td>{{ user.favorite_music_age }}年代</td>
+                        <td>{{ user.favoriteMusicAge }}年代</td>
                     </tr>
-                    <tr v-if="user.favorite_artist">
+                    <tr v-if="user.favoriteArtist">
                         <th>好きなアーティスト</th>
-                        <td>{{ user.favorite_artist }}</td>
+                        <td>{{ user.favoriteArtist }}</td>
                     </tr>
                     <tr v-if="user.comment">
                         <th>コメント</th>
@@ -46,10 +46,10 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator'
 import { ILoginUser } from '~/types/user'
 @Component({
     filters: {
-        genderFormat: (gender: string) => {
-            if (gender === '1') {
+        genderFormat: (gender: number) => {
+            if (gender === 1) {
                 return '男性'
-            } else if (gender === '2') {
+            } else if (gender === 2) {
                 return '女性'
             } else {
                 return '-'

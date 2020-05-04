@@ -57,7 +57,7 @@ export default class PageUserDetail extends Vue {
         id: null,
         name: '',
         email: '',
-        role: 10,
+        // role: 10,
         created_at: '',
         updated_at: '',
         age: null,

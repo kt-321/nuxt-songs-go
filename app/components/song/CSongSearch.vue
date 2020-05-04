@@ -39,6 +39,7 @@
             <c-checkbox text="曲紹介あり" :checked.sync="filter.status.hasDescription" />
             <c-checkbox text="お気に入り済み" :checked.sync="filter.status.is_bookmarked" />
             <c-button small warning label="新規追加" @c-click="addSongHandler" style="margin-left: 30%" />
+            <c-button small warning label="Spotifyで検索して新規追加" @c-click="getRedirectURL" style="margin-left: 30%" />
         </div>
     </m-panel>
 </template>
@@ -67,6 +68,19 @@ export default class CSongSearch extends Vue {
         { label: '2000年代', value: 2000 },
         { label: '2010年代', value: 2010 }
     ]
+
+    async getRedirectURL() {
+        // クッキーにSpotifyのアクセストークンが入っているかい中で検索画面への遷移ルートを分ける
+        let credential = this.$cookies.get('__spotify-token__')
+        if (!credential) {
+            const response = await this.$axios.$get('/api/getRedirectUrl').catch((e) => {
+                console.log('アクセストークン取得失敗')
+            })
+            window.location.href = response
+        } else {
+            this.$router.push('/spotify/songs')
+        }
+    }
 
     @Watch('filterSync', { deep: true })
     filterChanged() {

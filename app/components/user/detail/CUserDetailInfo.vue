@@ -14,13 +14,13 @@
                     <td>性別</td>
                     <td>{{ user.gender | genderFormat}}</td>
                 </tr>
-                <tr v-if="user.favorite_music_age">
+                <tr v-if="user.favoriteMusicAge">
                     <td>好きな音楽の年代</td>
-                    <td>{{ user.favorite_music_age }}年代</td>
+                    <td>{{ user.favoriteMusicAge }}年代</td>
                 </tr>
-                <tr v-if="user.favorite_artist">
+                <tr v-if="user.favoriteArtist">
                     <td>好きなアーティスト</td>
-                    <td>{{ user.favorite_artist }}</td>
+                    <td>{{ user.favoriteArtist }}</td>
                 </tr>
                 <tr v-if="user.comment">
                     <td>コメント</td>
