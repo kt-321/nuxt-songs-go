@@ -2,7 +2,8 @@
     <m-page class="page-dashboard">
         <div>
             <p>ダッシュボード</p>
-            <pre>{{ $store.getters['user/user'].name }}</pre>
+            <pre>{{ $store.getters['user/user'] }}</pre>
+            <pre>{{ $store.getters['user/isGuest'] }}</pre>
         </div>
     </m-page>
 </template>
@@ -16,11 +17,6 @@ import { Component, Vue } from 'vue-property-decorator'
     }
 })
 export default class PageDashboard extends Vue {
-    mounted () {
-        if(this.$store.getters['user/isGuest']) {
-            this.$router.replace('/user/signin')
-        }
-    }
 }
 </script>
 
