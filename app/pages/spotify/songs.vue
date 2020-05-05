@@ -7,16 +7,40 @@
             <c-text-input :model.sync="title.title" />
             <c-button label="アクセストークン取得後、曲選択" tiny success @c-click="tracks"></c-button>
         </div>
-        <div v-if="results && results[0] && results[0].album">
-            <!-- <pre v-if="results">{{ results[0].artists[0].name }}</pre> -->
+        <ul v-if="results">
+            <!-- <li v-for="(tab, index) in tabs" :key="index" class="tab" v-if="results && results[0] && results[0].album"> -->
+            <!-- <li v-for="(result, index) in results" :key="index" class="tab" v-if="results[index] && results[index].album"> -->
+            <!-- <li v-for="(result, index) in results" :key="index" class="tab" v-if="results[index]"> -->
+            <li v-for="(result, index) in results" :key="index" class="tab">
+                <!-- <pre>{{ results[0].artists[0].name }}</pre>
+                <pre>{{ results[0].name }}</pre>
+                <pre>{{ results[0].track_number }}</pre>
+                <pre>{{ results[0].album.artists[0].name }}</pre>
+                <pre>{{ results[0].album.name }}</pre>
+                <pre>{{ results[0].album.release_date }}</pre> -->
+                <pre>{{ index }}</pre>
+                <img v-if="results[index].album.images[0].url" class="song__icon" :src="results[index].album.images[0].url" />
+                <pre>{{ results[index].album.images[0].url }}</pre>
+                <pre>{{ results[index].artists[0].name }}</pre>
+                <pre>{{ results[index].name }}</pre>
+                <pre>{{ results[index].track_number }}</pre>
+                <pre>{{ results[index].album.artists[0].name }}</pre>
+                <pre>{{ results[index].album.name }}</pre>
+                <pre>{{ results[index].album.release_date }}</pre>
+                <p>===============================</p>
+            </li>
+        </ul>
+        <li v-for="(tab, index) in tabs" :key="index" class="tab" :class="{ active: selectedTab === tab.key }" @click="selectedTab = tab.key">
+            {{ tab.label }}
+        </li>
+        <!-- <div v-if="results && results[0] && results[0].album">
             <pre>{{ results[0].artists[0].name }}</pre>
             <pre>{{ results[0].name }}</pre>
             <pre>{{ results[0].track_number }}</pre>
             <pre>{{ results[0].album.artists[0].name }}</pre>
             <pre>{{ results[0].album.name }}</pre>
             <pre>{{ results[0].album.release_date }}</pre>
-            <!-- <pre>{{ results[0] }}</pre> -->
-        </div>
+        </div> -->
     </m-page>
 </template>
 
@@ -93,4 +117,9 @@ export default class PageSpotifySongs extends Vue {
     }
 </script>
 
-<style lang="stylus"></style>
+<style lang="stylus">
+.page-spotify-songs
+    .song__icon
+        width 100px
+        height 100px
+</style>
