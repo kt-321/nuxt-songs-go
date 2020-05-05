@@ -37,32 +37,11 @@ export default class PageSignin extends Vue {
             if (this.password.length === 0) {
                 this.errors.push(new BadRequest('パスワードが入力されていません'))
             }
-            // if (this.errors.length === 0) {
-            //     const postData = {
-            //         'grant_type': 'password',
-            //         'client_id': '6',
-            //         'client_secret': 'hqsU5vHqXaVVH85MdhZORkosxNCkeF3NURJkLwMp',
-            //         'username': this.username,
-            //         'password': this.password,
-            //         'scope': '',
-            //     }
-            //     const response = await this.$axios.$post('/oauth/token', postData).catch((e) => {
-            //             console.log('アクセストークン取得失敗')
-            //     })
-            //     this.$cookies.set('__cred__', response.access_token, {
-            //         path: '/',
-            //     })
-            //     // ダッシュボードに遷移
-            //     this.$router.replace('/song')
-            // }
             if (this.errors.length === 0) {
                 const form = {
                     email: this.username,
                     password: this.password
-                    // email: this.username,
-                    // password: this.password
                 }
-                // const response = await this.$axios.$post('/oauth/token', postData).catch((e) => {
                 const response = await this.$axios.$post('/api/login', form).catch((e) => {
                     console.log('アクセストークン取得失敗')
                 })
