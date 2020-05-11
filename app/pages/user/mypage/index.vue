@@ -104,9 +104,9 @@ export default class PageMypage extends Vue {
             const user = await this.$axios.$get('/api/user')
             this.$store.dispatch('user/setUser', user)
             this.profileUpdated = true
-            if (this.avatorUpdated) {
-                this.avatorUpdated = false
-            }
+            // if (this.avatorUpdated) {
+            //     this.avatorUpdated = false
+            // }
         } catch (e) {
             this.profileErrors.push(e)
         }

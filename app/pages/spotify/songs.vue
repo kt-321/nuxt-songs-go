@@ -122,10 +122,6 @@ export default class PageSpotifySongs extends Vue {
         console.log(this.results)
     }
 
-    test(index) {
-        console.log(this.results[index])
-    }
-
     songModalModel: ISong = newSong()
     songModalVisible: boolean = false
     spotifyModel: ISong | null = null
