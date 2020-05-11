@@ -2,18 +2,19 @@ import { ISong } from '~/types/song'
 export function newSong(): ISong {
     return {
         id: null,
-        user_id: null,
+        userId: null,
         title: '',
-        artist_name: '',
-        music_age: null,
+        artist: '',
+        musicAge: null,
         description: null,
-        image_url: null,
-        video_url: null,
-        created_at: '',
-        updated_at: '',
-        deleted_at: null,
-        is_bookmarked: false,
-        bookmarking_users: [],
-        comments: []
+        image: null,
+        video: null,
+        spotifyTrackId: null,
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null,
+        // is_bookmarked: false,
+        // bookmarking_users: [],
+        // comments: []
     }
 }

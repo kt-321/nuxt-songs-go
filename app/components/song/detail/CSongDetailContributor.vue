@@ -20,13 +20,13 @@
                         <td>性別</td>
                         <td>{{ contributor.gender | genderFormat }}</td>
                     </tr>
-                    <tr v-if="contributor.favorite_music_age">
+                    <tr v-if="contributor.favoriteMusicAge">
                         <td>好きな音楽の年代</td>
-                        <td>{{ contributor.favorite_music_age }}年代</td>
+                        <td>{{ contributor.favoriteMusicAge }}年代</td>
                     </tr>
-                    <tr v-if="contributor.favorite_artist">
+                    <tr v-if="contributor.favoriteArtist">
                         <td>好きなアーティスト</td>
-                        <td>{{ contributor.favorite_artist }}</td>
+                        <td>{{ contributor.favoriteArtist }}</td>
                     </tr>
                     <tr v-if="contributor.comment">
                         <td>自己紹介</td>
@@ -36,14 +36,14 @@
             </table>
             <div style="text-align: center;">
                 <c-button
-                    v-if="contributor.id !== $store.getters['user/user'].id && !contributor.is_followed" 
+                    v-if="$store.getters['user/followings'].findIndex((it) => it.id === contributor.id) === -1" 
                     small
                     block
                     label="フォローする"
                     @c-click="followHandler"
                 />
                 <c-button
-                    v-if="contributor.id !== $store.getters['user/user'].id && contributor.is_followed" 
+                    v-else
                     small
                     block
                     warning
@@ -79,35 +79,39 @@ export default class CsongDetailContributor extends Vue {
         id: null,
         name: '',
         email: '',
-        role: 10,
-        created_at: '',
-        updated_at: '',
+        createdAt: '',
+        updatedAt: '',
         age: null,
         gender: null,
-        image_url: null,
-        favorite_music_age: null,
-        favorite_artist: null,
+        imageUrl: null,
+        favoriteMusicAge: null,
+        favoriteArtist: null,
         comment: null,
-        is_followed: false
+        followings: [],
+        bookmarkings: []
     }
 
     // 投稿者一覧を読み込み
     async loadContributor() {
-        const contributor = await this.$axios.$get(`/api/user/${this.song!.user_id}`)
+        const contributor = await this.$axios.$get(`/api/user/${this.song!.userId}`)
         this.contributor = contributor
-        {{ contributor }}
     }
 
     // ユーザーをフォローする
     async followHandler() {
         await this.$axios.$post(`/api/user/${this.contributor.id}/follow`)
-        this.loadContributor()
+        this.loadSelfInformation()
     }
 
     // ユーザーをフォローを外す
     async unfollowHandler() {
         await this.$axios.$post(`/api/user/${this.contributor.id}/unfollow`)
-        this.loadContributor()
+        this.loadSelfInformation()
+    }
+
+    async loadSelfInformation() {
+        const user = await this.$axios.$get('/api/user')
+        this.$store.dispatch('user/setUser', user)
     }
 
     mounted () {

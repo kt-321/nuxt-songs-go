@@ -14,7 +14,7 @@
                     :info="filter.sort.active === 'updatedAtAsc'"
                     @cs-click="filter.sort.active = 'updatedAtAsc'"
                 />
-                <c-sort-button
+                <!-- <c-sort-button
                     label="お気に入り数順"
                     :asc.sync="filter.sort.bookmarkingUsersAsc"
                     :info="filter.sort.active === 'bookmarkingUsersAsc'"
@@ -25,10 +25,10 @@
                     :asc.sync="filter.sort.commentedUsersAsc"
                     :info="filter.sort.active === 'commentedUsersAsc'"
                     @cs-click="filter.sort.active = 'commentedUsersAsc'"
-                />
+                /> -->
             </div>
             <div class="text-search">
-                <c-dropdown :items="musicAgeItems" :model.sync="filter.music_age" data-label="label" data-value="value" />
+                <c-dropdown :items="musicAgeItems" :model.sync="filter.musicAge" data-label="label" data-value="value" />
                 <c-text-input placeholder="検索キーワードを入力" :model.sync="filter.text" />
             </div>
         </m-column>

@@ -8,60 +8,60 @@
                         <td style-="width: 120px">
                             <p class="item-header">
                                 <strong>{{ song.title }}</strong>
-                                <span v-if="song.user_id === $store.getters['user/user'].id" class="tag self">自分の投稿</span>
+                                <span v-if="song.userId === $store.getters['user/user'].id" class="tag self">自分の投稿</span>
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td>アーティスト</td>
-                        <td>{{ song.artist_name }}</td>
+                        <td>{{ song.artist }}</td>
                     </tr>
                     <tr>
                         <td>曲の年代</td>
-                        <td>{{ song.music_age }}年代</td>
+                        <td>{{ song.musicAge }}年代</td>
                     </tr>
                     <tr v-if="song.description">
                         <td>曲紹介</td>
                         <td>{{ song.description }}</td>
                     </tr>
-                    <tr v-if="song.bookmarking_users">
+                    <!-- <tr v-if="song.bookmarking_users">
                         <td>お気に入り登録者数</td>
                         <td>{{ song.bookmarking_users.length }}人</td>
                     </tr>
                     <tr>
                         <td>曲へのコメント数</td>
                         <td>{{ song.comments.length }}</td>
-                    </tr>
+                    </tr> -->
                     <tr>
                         <td>投稿日時</td>
-                        <td>{{ song.created_at }}</td>
+                        <td>{{ song.createdAt }}</td>
                     </tr>
                     <tr>
                         <td>更新日時</td>
-                        <td>{{ song.updated_at }}</td>
+                        <td>{{ song.updatedAt }}</td>
                     </tr>
                 </tbody>
             </table>
-            <div v-if="song.video_url">
-                <youtube :video-id="song.video_url" width="100%"></youtube>
+            <div v-if="song.video">
+                <youtube :video-id="song.video" width="100%"></youtube>
             </div>
-            <c-button
-                v-if="song.user_id === $store.getters['user/user'].id"
+            <!-- <c-button
+                v-if="song.userId === $store.getters['user/user'].id"
                 small
                 success
                 block
                 label="画像を変更する"
                 @c-click="uploadButtonHandler"
-            />
+            /> -->
             <c-button
-                v-if="song.user_id === $store.getters['user/user'].id"
+                v-if="song.userId === $store.getters['user/user'].id"
                 small
                 block
                 label="編集"
                 @c-click="editButtonHandler"
             />
             <c-button
-                v-if="song.user_id === $store.getters['user/user'].id"
+                v-if="song.userId === $store.getters['user/user'].id"
                 danger
                 small
                 block
@@ -69,14 +69,14 @@
                 @c-click="deleteButtonHandler"
             />
             <c-button
-                v-if="song.user_id !== $store.getters['user/user'].id && !song.is_bookmarked" 
+                v-if="$store.getters['user/bookmarkings'].findIndex((it) => it.id === song.id) === -1"
                 small
                 block
                 label="お気に入りに登録する"
                 @c-click="bookmarkButtonHandler"
             />
             <c-button
-                v-if="song.user_id !== $store.getters['user/user'].id && song.is_bookmarked"
+                v-else
                 warning
                 small
                 block
