@@ -96,4 +96,18 @@ export const getters: GetterTree<State, RootState> = {
             return it.id === id
         })
     },
+    followings(state) {
+        if (state.user) {
+            return state.user.followings
+        } else {
+            return []
+        }
+    },
+    bookmarkings(state) {
+        if (state.user) {
+            return state.user.bookmarkings
+        } else {
+            return []
+        }
+    }
 }

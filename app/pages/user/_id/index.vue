@@ -15,13 +15,13 @@
                 <!-- ボタンエリア -->
                 <m-panel class="button-area">
                     <c-button 
-                        v-if="user.id !== $store.getters['user/user'].id && !user.is_followed"
+                        v-if="$store.getters['user/followings'].findIndex((it) => it.id === user.id) === -1"
                         block
                         label="フォローする"
                         @c-click="followButtonHandler"
                     />
                     <c-button
-                        v-if="user.id !== $store.getters['user/user'].id && user.is_followed"
+                        v-else
                         block
                         warning
                         label="フォロー中"
@@ -57,16 +57,16 @@ export default class PageUserDetail extends Vue {
         id: null,
         name: '',
         email: '',
-        role: 10,
-        created_at: '',
-        updated_at: '',
+        // role: 10,
+        createdAt: '',
+        updatedAt: '',
         age: null,
         gender: null,
-        image_url: null,
-        favorite_music_age: null,
-        favorite_artist: null,
+        imageUrl: null,
+        favoriteMusicAge: null,
+        favoriteArtist: null,
         comment: null,
-        is_followed: false
+        followings:[]
     }
     // 再読み込み
     async loadUser() {
@@ -74,15 +74,20 @@ export default class PageUserDetail extends Vue {
         this.user = user
     }
 
+    async loadSelfInformation() {
+        const user = await this.$axios.$get('/api/user')
+        this.$store.dispatch('user/setUser', user)
+    }
+
     // ユーザーをフォローする
     async followButtonHandler() {
         await this.$axios.$post(`/api/user/${this.user.id}/follow`)
-        this.loadUser()
+        this.loadSelfInformation()
     }
     // ユーザーをフォローを外す
     async unfollowButtonHandler() {
         await this.$axios.$post(`/api/user/${this.user.id}/unfollow`)
-        this.loadUser()
+        this.loadSelfInformation()
     }
     
     mounted() {

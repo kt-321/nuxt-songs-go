@@ -8,12 +8,12 @@
         />
         <m-column>
             <ul class="song-list">
-                <li v-if="songs.length > 0">
-                    検索結果: {{ filteredModels().length }}曲
-                </li>
-                <li v-else>
+                <!-- <li v-if="songs.length > 0"> -->
+                    <!-- 検索結果: {{ filteredModels().length }}曲 -->
+                <!-- </li> -->
+                <!-- <li v-else>
                     <c-message warning>曲が見つかりませんでした</c-message>
-                </li>
+                </li> -->
                 <c-song-list-item v-for="song in filteredModels()" :key="song.id" :class="{ selected: selectedSong && song.id === selectedSong.id }"
                     :song="song" @c-select="selectSong(song)" />
             </ul>
@@ -88,7 +88,7 @@ export default class PageSongIndex extends Vue {
             hasDescription: false,
             is_bookmarked: false
         },
-        music_age: 0,
+        musicAge: 0,
         sort: {
             active: 'createdAtAsc',
             createdAtAsc: false,
@@ -128,29 +128,36 @@ export default class PageSongIndex extends Vue {
     async bookmarkButtonHandler() {
         if (this.selectedSong) {
             await this.$axios.$post(`/api/song/${this.selectedSong.id}/bookmark`)
-            this.loadSongs()
+            // this.loadSongs()
+            this.loadSelfInformation()
         }
     }
     // 曲をお気に入りから外す
     async removeBookmarkButtonHandler() {
         if (this.selectedSong) {
             await this.$axios.$post(`/api/song/${this.selectedSong.id}/removeBookmark`)
-            this.loadSongs()
+            // this.loadSongs()
+            this.loadSelfInformation()
         }
+    }
+
+    async loadSelfInformation() {
+        const user = await this.$axios.$get('/api/user')
+        this.$store.dispatch('user/setUser', user)
     }
 
     // 曲の編集完了後に曲一覧を再読み込み
     async songEditFinished() {
         this.loadSongs()
     }
-    // 曲へのコメントの編集完了後に曲一覧を再読み込み
-    async songCommentEditFinished() {
-        this.loadSongs()
-    }
-    // 曲へのコメントの削除完了後に曲一覧を再読み込み
-    async songCommentDeleteFinished() {
-        this.loadSongs()
-    }
+    // // 曲へのコメントの編集完了後に曲一覧を再読み込み
+    // async songCommentEditFinished() {
+    //     this.loadSongs()
+    // }
+    // // 曲へのコメントの削除完了後に曲一覧を再読み込み
+    // async songCommentDeleteFinished() {
+    //     this.loadSongs()
+    // }
     // 曲一覧を読み込み
     async loadSongs() {
         await this.$store.dispatch('song/sync')
@@ -159,23 +166,23 @@ export default class PageSongIndex extends Vue {
     }
 
     // 曲の画像を変更するモーダルを表示
-    async uploadButtonHandler() {
-        if (this.selectedSong) {
-            this.iconModalModel = _.cloneDeep(this.selectedSong)
-            this.iconModalVisible = true
-        }
-    }
+    // async uploadButtonHandler() {
+    //     if (this.selectedSong) {
+    //         this.iconModalModel = _.cloneDeep(this.selectedSong)
+    //         this.iconModalVisible = true
+    //     }
+    // }
 
     // 曲の画像アップロード完了後
-    songIconUploaded() {
-        this.loadSongs()
-        this.iconUploaded = true
-        setTimeout(this.closeMessage, 3000);
-    }
+    // songIconUploaded() {
+    //     this.loadSongs()
+    //     this.iconUploaded = true
+    //     setTimeout(this.closeMessage, 3000);
+    // }
     
-    closeMessage() {
-        this.iconUploaded = false
-    }
+    // closeMessage() {
+    //     this.iconUploaded = false
+    // }
 
     mounted() {
         if(this.$store.getters['user/isGuest']) {
@@ -201,7 +208,7 @@ export default class PageSongIndex extends Vue {
     }
     @Watch('selectedSong') 
     changeSelect() {
-        if (this.selectedSong && this.selectedSong.video_url !== null) {
+        if (this.selectedSong && this.selectedSong.video !== null) {
             this.fixed = false
         } else {
             this.fixed = true

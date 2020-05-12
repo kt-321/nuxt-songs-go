@@ -1,7 +1,7 @@
 <template>
     <div v-if="song" class="c-song-detail-comment">
         <m-card>
-            <ul v-if="song.comments.length !== 0" class="comments">
+            <!-- <ul v-if="song.comments.length !== 0" class="comments">
                 <li v-for="(comment, index) in song.comments" :key="index" class="comment">
                     <ul>
                         <li v-if="comment.created_at === comment.updated_at">
@@ -24,8 +24,8 @@
                     <c-button v-if="comment.user_id === $store.getters['user/user'].id" class="button-delete" label="削除" danger small @c-click="deleteCommentButtonHandler(comment)" />
                     <c-button v-if="comment.user_id === $store.getters['user/user'].id" class="button-edit" label="編集" secondary small @c-click="editCommentButtonHandler(comment)" />
                 </li>
-            </ul>
-            <p v-if="song.comments.length === 0">まだコメントはありません。</p>
+            </ul> -->
+            <!-- <p v-if="song.comments.length === 0">まだコメントはありません。</p> -->
             <m-form class="c-song-edit-form">
                 <c-error :errors.sync="errors" />
                 <c-text-input :model.sync="model.body" multiline />
@@ -62,19 +62,19 @@ export default class CSongDetailComment extends Vue {
     // 完了ボタンが押された
     saveButtonDisabled: boolean = false
     async commentButtonHandler() {
-        try {
-            this.errors = []
-            // バリデーション
-            if (this.model.body.length === 0) {
-                this.errors.push(new BadRequest('コメントが入力されていません'))
-            }
-            await this.$axios.$post(`/api/song/${this.song.id}/comment`, this.model)
-            this.model.body = ''
-            this.$emit('song-comment-edit-finished-handler')
-            this.model.body = ''
-        } catch (e) {
-            this.errors.push(e)
-        }
+        // try {
+        //     this.errors = []
+        //     // バリデーション
+        //     if (this.model.body.length === 0) {
+        //         this.errors.push(new BadRequest('コメントが入力されていません'))
+        //     }
+        //     await this.$axios.$post(`/api/song/${this.song.id}/comment`, this.model)
+        //     this.model.body = ''
+        //     this.$emit('song-comment-edit-finished-handler')
+        //     this.model.body = ''
+        // } catch (e) {
+        //     this.errors.push(e)
+        // }
     }
 
     async deleteCommentButtonHandler(comment: any) {
@@ -92,18 +92,18 @@ export default class CSongDetailComment extends Vue {
     }
 
     async editSaveButtonHandler(model :any) {
-        try {
-            this.errors = []
-            // バリデーション
-            if (this.model.body.length === 0) {
-                throw new BadRequest('内容は必須項目です')
-            }
-            const sendData = _.cloneDeep(this.model)
-            await this.$axios.$put(`/api/song/${this.song.id}/comment/${model.id}`, sendData)
-            this.$emit('song-comment-edit-finished-handler')
-        } catch (e) {
-            this.errors.push(e)
-        }
+        // try {
+        //     this.errors = []
+        //     // バリデーション
+        //     if (this.model.body.length === 0) {
+        //         throw new BadRequest('内容は必須項目です')
+        //     }
+        //     const sendData = _.cloneDeep(this.model)
+        //     await this.$axios.$put(`/api/song/${this.song.id}/comment/${model.id}`, sendData)
+        //     this.$emit('song-comment-edit-finished-handler')
+        // } catch (e) {
+        //     this.errors.push(e)
+        // }
     }
 
     cancelEditButtonHandler(model: any) {

@@ -14,7 +14,7 @@
                     :info="filter.sort.active === 'updatedAtAsc'"
                     @cs-click="filter.sort.active = 'updatedAtAsc'"
                 />
-                <c-sort-button
+                <!-- <c-sort-button
                     label="お気に入り数順"
                     :asc.sync="filter.sort.bookmarkingUsersAsc"
                     :info="filter.sort.active === 'bookmarkingUsersAsc'"
@@ -25,10 +25,10 @@
                     :asc.sync="filter.sort.commentedUsersAsc"
                     :info="filter.sort.active === 'commentedUsersAsc'"
                     @cs-click="filter.sort.active = 'commentedUsersAsc'"
-                />
+                /> -->
             </div>
             <div class="text-search">
-                <c-dropdown :items="musicAgeItems" :model.sync="filter.music_age" data-label="label" data-value="value" />
+                <c-dropdown :items="musicAgeItems" :model.sync="filter.musicAge" data-label="label" data-value="value" />
                 <c-text-input placeholder="検索キーワードを入力" :model.sync="filter.text" />
             </div>
         </m-column>
@@ -39,6 +39,7 @@
             <c-checkbox text="曲紹介あり" :checked.sync="filter.status.hasDescription" />
             <c-checkbox text="お気に入り済み" :checked.sync="filter.status.is_bookmarked" />
             <c-button small warning label="新規追加" @c-click="addSongHandler" style="margin-left: 30%" />
+            <c-button small warning label="Spotifyで検索して新規追加" @c-click="getRedirectURL" style="margin-left: 30%" />
         </div>
     </m-panel>
 </template>
@@ -67,6 +68,19 @@ export default class CSongSearch extends Vue {
         { label: '2000年代', value: 2000 },
         { label: '2010年代', value: 2010 }
     ]
+
+    async getRedirectURL() {
+        // クッキーにSpotifyのアクセストークンが入っているかい中で検索画面への遷移ルートを分ける
+        let credential = this.$cookies.get('__spotify-token__')
+        if (!credential) {
+            const response = await this.$axios.$get('/api/getRedirectUrl').catch((e) => {
+                console.log('アクセストークン取得失敗')
+            })
+            window.location.href = response
+        } else {
+            this.$router.push('/spotify/songs')
+        }
+    }
 
     @Watch('filterSync', { deep: true })
     filterChanged() {

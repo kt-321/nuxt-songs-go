@@ -8,14 +8,17 @@
     >
         <m-form v-if="showModal == '1'" title="基本情報" class="c-song-edit-form">
             <c-error :errors.sync="errors" />
+            <c-labeled-item v-if="model.image" label="画像">
+                <img class="song__icon" :src="model.image" />
+            </c-labeled-item>
             <c-labeled-item label="曲名" required>
                 <c-text-input :model.sync="model.title" />
             </c-labeled-item>
             <c-labeled-item label="アーティスト名" required>
-                <c-text-input :model.sync="model.artist_name" />
+                <c-text-input :model.sync="model.artist" />
             </c-labeled-item>
             <c-labeled-item label="曲の年代" required>
-                <c-dropdown :model.sync="model.music_age" :items="musicAgeItems" data-value="value" />
+                <c-dropdown :model.sync="model.musicAge" :items="musicAgeItems" data-value="value" />
             </c-labeled-item>
             <div class="button-area">
                 <c-button label="キャンセル" small @c-click="cancelHandler" />
@@ -29,7 +32,7 @@
             </c-labeled-item>
             <c-labeled-item label="YouTubeのURL">
                 https://www.youtube.com/watch?v=
-                <c-text-input :model.sync="model.video_url" />
+                <c-text-input :model.sync="model.video" />
             </c-labeled-item>
             <div class="button-area">
                 <c-button class="button-back" label="戻る" small @c-click="previousHandler" />
@@ -63,10 +66,10 @@ export default class CSongEdit extends Vue {
             if (this.syncModel.title.length === 0) {
                 this.errors.push(new BadRequest('曲名が入力されていません'))
             }
-            if (this.syncModel.artist_name.length === 0) {
+            if (this.syncModel.artist.length === 0) {
                 this.errors.push(new BadRequest('アーティスト名が入力されていません'))
             }
-            if (!this.syncModel.music_age) {
+            if (!this.syncModel.musicAge) {
                 this.errors.push(new BadRequest('曲の年代が入力されていません'))
             }
             // 次の入力画面へ画面遷移する

@@ -4,7 +4,7 @@ export interface ISongFilter {
     // 自由テキストフィルタ
     text: string
     // 曲の年代フィルタ
-    music_age: number
+    musicAge: number
     // 曲状態フィルタ
     status: ISongFilterStatus
     // 並び順
