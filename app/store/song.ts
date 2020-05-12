@@ -17,7 +17,7 @@ export const state = (): State => ({
             hasDescription: false,
             is_bookmarked: false
         },
-        music_age: 0,
+        musicAge: 0,
         sort: {
             active: 'createdAtAsc',
             createdAtAsc: false,
@@ -82,7 +82,7 @@ export const getters: GetterTree<State, RootState> = {
                 if (filter.text.length > 0) {
                     return (
                         it.title.includes(filter.text) ||
-                        (it.artist_name && it.artist_name.includes(filter.text))
+                        (it.artist && it.artist.includes(filter.text))
                     )
                 }
                 return true
@@ -90,10 +90,10 @@ export const getters: GetterTree<State, RootState> = {
             // 曲状態フィルタ
             .filter((it) => {
                 // // 全ての年代が選択されている時
-                if (filter.music_age === 0) {
+                if (filter.musicAge === 0) {
                     return true
                 }
-                if (filter.music_age === it.music_age) {
+                if (filter.musicAge === it.musicAge) {
                 // いずれかの年代を選択されている時
                     return true
                 }
@@ -101,11 +101,11 @@ export const getters: GetterTree<State, RootState> = {
             })
             .filter((it) => {
                 // 「映像あり」のチェックが外れると、映像がない曲を除外
-                if (filter.status.hasVideo && !it.video_url) {
+                if (filter.status.hasVideo && !it.video) {
                     return false
                 }
                 // 「画像あり」のチェックが外れると、画像がない曲を除外
-                if (filter.status.hasImage && !it.image_url) {
+                if (filter.status.hasImage && !it.image) {
                     return false
                 }
                 // 「曲紹介あり」のチェックが外れると、曲紹介がない曲を除外
@@ -113,7 +113,7 @@ export const getters: GetterTree<State, RootState> = {
                     return false
                 }
                 // 「曲紹介あり」のチェックが外れると、お気に入りに登録していない曲を除外
-                if (filter.status.is_bookmarked && !it.is_bookmarked) {
+                if (filter.status.is_bookmarked && rootGetters['user/bookmarkings'].findIndex((_it: any) => _it.id === it.id) === -1) {
                     return false
                 }
                 return true
@@ -124,21 +124,21 @@ export const getters: GetterTree<State, RootState> = {
             const asc = filterSort[filterSort.active]
             
             // 追加日
-            if (filter.sort.active === 'createdAtAsc' && a.created_at && b.created_at) {
-                return (moment(a.created_at) < moment(b.created_at) ? 1 : -1) * (asc ? -1 : 1)
+            if (filter.sort.active === 'createdAtAsc' && a.createdAt && b.createdAt) {
+                return (moment(a.createdAt) < moment(b.createdAt) ? 1 : -1) * (asc ? -1 : 1)
             }
             // 更新日
-            if (filter.sort.active === 'updatedAtAsc' && a.updated_at && b.updated_at) {
-                return (moment(a.updated_at) < moment(b.updated_at) ? 1 : -1) * (asc ? -1 : 1)
+            if (filter.sort.active === 'updatedAtAsc' && a.updatedAt && b.updatedAt) {
+                return (moment(a.updatedAt) < moment(b.updatedAt) ? 1 : -1) * (asc ? -1 : 1)
             }
-            // お気に入り数順
-            if (filter.sort.active === 'bookmarkingUsersAsc') {
-                return (a.bookmarking_users.length! < b.bookmarking_users.length! ? 1 : -1) * (asc ? -1 : 1)
-            }
-            // コメント数順
-            if (filter.sort.active === 'commentedUsersAsc') {
-                return (a.comments.length! < b.comments.length! ? 1 : -1) * (asc ? -1 : 1)
-            }
+            // // お気に入り数順
+            // if (filter.sort.active === 'bookmarkingUsersAsc') {
+            //     return (a.bookmarking_users.length! < b.bookmarking_users.length! ? 1 : -1) * (asc ? -1 : 1)
+            // }
+            // // コメント数順
+            // if (filter.sort.active === 'commentedUsersAsc') {
+            //     return (a.comments.length! < b.comments.length! ? 1 : -1) * (asc ? -1 : 1)
+            // }
             return 0
         })
         return models

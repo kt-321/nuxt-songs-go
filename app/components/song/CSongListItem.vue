@@ -2,7 +2,7 @@
     <li v-if="song" class="c-song-list-item" @click="selectSong">
         <m-column center>
             <div class="c-song-list-item-photo">
-                <img v-if="song.image_url" class="song__icon" :src="song.image_url" />
+                <img v-if="song.image" class="song__icon" :src="song.image" />
                 <img v-else class="song__icon" src="/img/song-icon.jpeg">
             </div>
             <table class="c-song-list-item-data table no-border">
@@ -13,8 +13,8 @@
                             <p class="item-header">
                                 <strong>{{ song.title }}</strong>
                                 <span class="tags">
-                                    <span v-if="song.user_id === $store.getters['user/user'].id" class="tag self">自分の投稿</span>
-                                    <span v-if="song.video_url" class="tag video">映像あり</span>
+                                    <span v-if="song.userId === $store.getters['user/user'].id" class="tag self">自分の投稿</span>
+                                    <span v-if="song.video" class="tag video">映像あり</span>
                                     <span v-if="song.description" class="tag description">曲紹介あり</span>
                                 </span>
                             </p>
@@ -22,20 +22,20 @@
                     </tr>
                     <tr>
                         <th>アーティスト</th>
-                        <td>{{ song.artist_name }}</td>
+                        <td>{{ song.artist }}</td>
                     </tr>
                     <tr>
                         <th>曲の年代</th>
-                        <td>{{ song.music_age }}年代</td>
+                        <td>{{ song.musicAge }}年代</td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th>お気に入り数</th>
                         <td>{{ song.bookmarking_users.length }}</td>
-                    </tr>
-                    <tr>
+                    </tr> -->
+                    <!-- <tr>
                         <th>コメント数</th>
                         <td>{{ song.comments.length }}</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </m-column>
