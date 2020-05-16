@@ -127,7 +127,7 @@ export default class PageSpotifySongs extends Vue {
     spotifyModel: ISong | null = null
 
     // 曲を編集
-    editButtonHandler(index) {
+    editButtonHandler(index: number) {
         this.songModalModel.title = _.cloneDeep(this.results[index].name)
         this.songModalModel.image = _.cloneDeep(this.results[index].album.images[0].url)
         this.songModalModel.artist = _.cloneDeep(this.results[index].artists[0].name)
