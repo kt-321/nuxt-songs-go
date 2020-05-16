@@ -66,7 +66,8 @@ export default class PageUserDetail extends Vue {
         favoriteMusicAge: null,
         favoriteArtist: null,
         comment: null,
-        followings:[]
+        followings:[],
+        bookmarkings: []
     }
     // 再読み込み
     async loadUser() {
