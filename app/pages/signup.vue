@@ -12,6 +12,9 @@
                 <input v-model="form.password_confirmation" type="password" />
             </c-labeled-item>
             <c-button label="上記の内容で登録" tiny warning @c-click="signup" />
+            <div style="text-align: center; font-size: 12px">
+                <h3>テストユーザーを使って<nuxt-link to="/user/signin">ログイン</nuxt-link>可能です。</h3>
+            </div>
         </m-form>
     </m-page>
 </template>

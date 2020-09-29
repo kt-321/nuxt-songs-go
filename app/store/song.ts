@@ -116,6 +116,10 @@ export const getters: GetterTree<State, RootState> = {
                 if (filter.status.is_bookmarked && rootGetters['user/bookmarkings'].findIndex((_it: any) => _it.id === it.id) === -1) {
                     return false
                 }
+		        // 「お気に入り登録済み」のチェックが外れると、お気に入りに登録していない曲を除外
+                if (filter.status.is_bookmarked && rootGetters['user/bookmarkings'].findIndex((_it: any) => _it.id === it.id) === -1) {
+                    return false
+                }
                 return true
             })
         models.sort((a: ISong, b: ISong) => {

@@ -10,6 +10,13 @@
             </c-labeled-item>
             <c-button label="ログイン" tiny success @c-click="login" />
         </m-form>
+        <div style="text-align: center">
+            <h3>以下のユーザーを使ってログイン可能です。</h3>
+            <ul>
+                <li>test@test.co.jp</li>
+                <li>testtest</li>
+            </ul>
+        </div>
     </m-page>
 </template>
 
@@ -48,7 +55,7 @@ export default class PageSignin extends Vue {
                 this.$cookies.set('__cred__', response.token, {
                     path: '/',
                 })
-                this.$router.replace('/dashboard')
+                this.$router.replace('/song')
             }
         } catch (e) {
             this.errors.push(e)
@@ -57,7 +64,7 @@ export default class PageSignin extends Vue {
 
     mounted() {
         if(!this.$store.getters['user/isGuest']) {
-            this.$router.replace('/dashboard')
+            this.$router.replace('/song')
         }
     }
 }

@@ -47,6 +47,9 @@ export const actions: ActionTree<State, RootState> = {
             this.$cookies.remove('__cred__', {
                 path: '/'
             })
+	    this.$cookies.remove('__spotify-token__', {
+                path: '/'
+            })
             // store保存
             context.commit('setUser', null)
         } catch (e) {

@@ -60,7 +60,9 @@ const config: Configuration = {
     },
     proxy: {
         '/api': {
+            // 一時的に変更
             target: 'http://localhost:8081',
+            // target: 'http://your-songs-laravel.site',
             pathRewrite: {
               '^/api' : '/'
               }
