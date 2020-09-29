@@ -36,7 +36,7 @@
             </table>
             <div style="text-align: center;">
                 <c-button
-                    v-if="$store.getters['user/followings'].findIndex((it) => it.id === contributor.id) === -1" 
+                    v-if="$store.getters['user/followings'] == null || ($store.getters['user/followings'] != [] && $store.getters['user/followings'].findIndex((it) => it.id === contributor.id) === -1)"
                     small
                     block
                     label="フォローする"
@@ -62,10 +62,10 @@ import { ISong } from '~/types/song'
 import { ILoginUser } from '~/types/user'
 @Component({
     filters: {
-        genderFormat: (gender: string) => {
-            if (gender === '1') {
+        genderFormat: (gender: number) => {
+            if (gender === 1) {
                 return '男性'
-            } else if (gender === '2') {
+            } else if (gender === 2) {
                 return '女性'
             } else {
                 return '-'
@@ -96,7 +96,7 @@ export default class CsongDetailContributor extends Vue {
         const contributor = await this.$axios.$get(`/api/user/${this.song!.userId}`)
         this.contributor = contributor
     }
-
+    
     // ユーザーをフォローする
     async followHandler() {
         await this.$axios.$post(`/api/user/${this.contributor.id}/follow`)

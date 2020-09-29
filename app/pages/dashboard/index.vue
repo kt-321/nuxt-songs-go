@@ -1,9 +1,8 @@
 <template>
     <m-page class="page-dashboard">
         <div>
-            <p>ダッシュボード</p>
-            <pre>{{ $store.getters['user/user'] }}</pre>
-            <pre>{{ $store.getters['user/isGuest'] }}</pre>
+            <p>ユーザー登録に成功しました。</p>
+	        <p>登録したメールアドレスおよびパスワードを用いてログインしてください。</p>
         </div>
     </m-page>
 </template>

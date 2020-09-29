@@ -1,10 +1,9 @@
 <template>
     <m-page class="page-spotify-songs">
         <div>
-            <p v-if="$route.query.code">{{ $route.query.code }}</p>
             <p>曲を検索</p>
             <c-text-input :model.sync="title.title" />
-            <c-button label="アクセストークン取得後、曲選択" tiny success @c-click="tracks"></c-button>
+            <c-button label="Spotifyで曲名検索" tiny success @c-click="tracks"></c-button>
         </div>
         <ul v-if="results">
             <!-- <li v-for="(tab, index) in tabs" :key="index" class="tab" v-if="results && results[0] && results[0].album"> -->
@@ -12,22 +11,19 @@
             <!-- <li v-for="(result, index) in results" :key="index" class="tab" v-if="results[index]"> -->
             <li v-for="(result, index) in results" :key="index" class="tab">
                 <!-- <pre>{{ result }}</pre> -->
-                <pre>{{ result.id }}</pre>
-                <pre>{{ index }}</pre>
-                <pre>{{ result.album.album_type }}</pre>
                 <img v-if="results[index].album.images[0].url" class="song__icon" :src="results[index].album.images[0].url" />
-                <pre>image_url:{{ results[index].album.images[0].url }}</pre>
                 <pre>artist:{{ results[index].artists[0].name }}</pre>
                 <pre>title:{{ results[index].name }}</pre>
-                <pre>{{ results[index].track_number }}</pre>
-                <!-- <pre>{{ results[index].album.artists[0].name }}</pre> -->
                 <pre>アルバム名:{{ results[index].album.name }}</pre>
                 <pre>アルバムのリリース日{{ results[index].album.release_date }}</pre>
                 <!-- <c-button label="投稿" @c-click="test(index)"></c-button> -->
                 <c-button label="投稿" @c-click="editButtonHandler(index)"></c-button>
-                <p>===============================</p>
+                <p>----------------------------------------------</p>
             </li>
         </ul>
+        <div style="margin-top: 30px">
+            <a href="https://gyazo.com/d1da4ee14f2c6b6633332db287327223"><img src="https://i.gyazo.com/d1da4ee14f2c6b6633332db287327223.gif" alt="Image from Gyazo" width="50%"/></a>
+        </div>
         <!-- <c-song-edit :visible.sync="songModalVisible" :model.sync="songModalModel" @c-song-edit-finished="songEditFinished" /> -->
         <c-song-edit :visible.sync="songModalVisible" :model.sync="songModalModel" />
         <!-- <li v-for="(tab, index) in tabs" :key="index" class="tab" :class="{ active: selectedTab === tab.key }" @click="selectedTab = tab.key">
@@ -84,7 +80,7 @@ export default class PageSpotifySongs extends Vue {
 
         console.log(code)
         if(this.$route.query.code) {
-            const responseToken = await this.$axios.$post('/api/getToken', code).catch((e) => {
+            const responseToken = await this.$axios.$post('/api/get-token', code).catch((e) => {
                 console.log('アクセストークン取得失敗')
             })
             console.log(responseToken)

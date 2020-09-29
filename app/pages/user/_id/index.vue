@@ -31,7 +31,6 @@
             </div>
             <!-- ユーザー詳細 -->
             <div class="user-detail">
-                ここに投稿している曲などを表示
             </div>
         </m-column>
     </m-page>
@@ -66,7 +65,7 @@ export default class PageUserDetail extends Vue {
         favoriteMusicAge: null,
         favoriteArtist: null,
         comment: null,
-        followings:[],
+        followings: [],
         bookmarkings: []
     }
     // 再読み込み
@@ -79,7 +78,7 @@ export default class PageUserDetail extends Vue {
         const user = await this.$axios.$get('/api/user')
         this.$store.dispatch('user/setUser', user)
     }
-
+    
     // ユーザーをフォローする
     async followButtonHandler() {
         await this.$axios.$post(`/api/user/${this.user.id}/follow`)
@@ -90,7 +89,7 @@ export default class PageUserDetail extends Vue {
         await this.$axios.$post(`/api/user/${this.user.id}/unfollow`)
         this.loadSelfInformation()
     }
-    
+ 
     mounted() {
         this.loadUser()
     } 

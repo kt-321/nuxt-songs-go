@@ -43,9 +43,9 @@ export default class SiteHeader extends Vue {
         if (this.$store.getters['user/isGuest']) {
             return '/'
         }
-        // ゲストでない場合は /dashboard
+        // ゲストでない場合は /song
         else {
-            return '/dashboard'
+            return '/song'
         }
     }
     async signout() {

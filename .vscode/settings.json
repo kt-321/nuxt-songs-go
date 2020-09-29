@@ -32,4 +32,10 @@
     // "vetur.format.defaultFormatter.ts": "prettier",
     // "css.validate": false,
     // "scss.validate": false
+    "[shellscript]": {
+      "editor.detectIndentation": false,
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "foxundermoon.shell-format",
+    },
   }
