@@ -16,20 +16,12 @@
                 @delete-handler="deleteButtonHandler"
                 @bookmark-handler="bookmarkButtonHandler"
                 @remove-bookmark-handler="removeBookmarkButtonHandler"
-                @upload-handler="uploadButtonHandler"
             />
             <c-song-detail-contributor
                 v-if="selectedTab === 1"
                 :song="song"
                 class="tab-content"
             />
-            <!-- <c-song-detail-comment
-                v-if="selectedTab === 2"
-                :song="song"
-                class="tab-content"
-                @song-comment-edit-finished-handler="songCommentEditFinishedHandler"
-                @song-comment-delete-finished-handler="songCommentDeleteFinishedHandler"
-            /> -->
         </div>
     </div>
 </template>
@@ -56,7 +48,6 @@ export default class CSongDetail extends Vue {
     tabs: Array<any> = [
         { label: '曲情報', key: 0 },
         { label: '投稿者', key: 1 },
-        // { label: 'コメント', key: 2 }
     ]
     editModalModel: ISong = newSong()
     editModalVisible: boolean = false
@@ -66,35 +57,17 @@ export default class CSongDetail extends Vue {
     
     @Emit('c-song-detail-delete')
     deleteButtonHandler() {}
-
+    
     @Emit('c-song-detail-bookmark')
     bookmarkButtonHandler() {}
 
     @Emit('c-song-detail-remove-bookmark')
     removeBookmarkButtonHandler() {}
 
-    // @Emit('c-song-comment-edit-finished')
-    // songCommentEditFinishedHandler() {}
-
-    // @Emit('c-song-comment-delete-finished')
-    // songCommentDeleteFinishedHandler() {}
-
-    // @Emit('c-song-icon-upload')
-    // uploadButtonHandler() {}
-
     @Watch('song')
     songChanged() {
         this.selectedTab = 0
     }
-
-    // @Watch('selectedTab')
-    // fixed() {
-    //     if ((this.selectedTab === 2 && this.song.comments.length >2) || (this.selectedTab === 0 && this.song.video_url !== null)) {
-    //         this.$emit('position-fixed', false)
-    //     } else {
-    //         this.$emit('position-fixed', true)
-    //     }
-    // }
 }
 </script>
 <style lang="stylus">

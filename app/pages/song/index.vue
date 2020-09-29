@@ -135,7 +135,7 @@ export default class PageSongIndex extends Vue {
     // 曲をお気に入りから外す
     async removeBookmarkButtonHandler() {
         if (this.selectedSong) {
-            await this.$axios.$post(`/api/song/${this.selectedSong.id}/removeBookmark`)
+            await this.$axios.$post(`/api/song/${this.selectedSong.id}/remove-bookmark`)
             // this.loadSongs()
             this.loadSelfInformation()
         }

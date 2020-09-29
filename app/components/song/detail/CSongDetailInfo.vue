@@ -24,14 +24,6 @@
                         <td>曲紹介</td>
                         <td>{{ song.description }}</td>
                     </tr>
-                    <!-- <tr v-if="song.bookmarking_users">
-                        <td>お気に入り登録者数</td>
-                        <td>{{ song.bookmarking_users.length }}人</td>
-                    </tr>
-                    <tr>
-                        <td>曲へのコメント数</td>
-                        <td>{{ song.comments.length }}</td>
-                    </tr> -->
                     <tr>
                         <td>投稿日時</td>
                         <td>{{ song.createdAt }}</td>
@@ -107,15 +99,12 @@ export default class CSongDetailInfo extends Vue {
     
     @Emit('delete-handler')
     deleteButtonHandler() {}
-
+   
     @Emit('bookmark-handler')
     bookmarkButtonHandler() {}
     
     @Emit('remove-bookmark-handler')
     removeBookmarkButtonHandler() {}
-
-    @Emit('upload-handler')
-    uploadButtonHandler() {}
 }
 </script>
 <style lang="stylus">

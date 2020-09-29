@@ -14,18 +14,6 @@
                     :info="filter.sort.active === 'updatedAtAsc'"
                     @cs-click="filter.sort.active = 'updatedAtAsc'"
                 />
-                <!-- <c-sort-button
-                    label="お気に入り数順"
-                    :asc.sync="filter.sort.bookmarkingUsersAsc"
-                    :info="filter.sort.active === 'bookmarkingUsersAsc'"
-                    @cs-click="filter.sort.active = 'bookmarkingUsersAsc'"
-                />
-                <c-sort-button
-                    label="コメント数順"
-                    :asc.sync="filter.sort.commentedUsersAsc"
-                    :info="filter.sort.active === 'commentedUsersAsc'"
-                    @cs-click="filter.sort.active = 'commentedUsersAsc'"
-                /> -->
             </div>
             <div class="text-search">
                 <c-dropdown :items="musicAgeItems" :model.sync="filter.musicAge" data-label="label" data-value="value" />
@@ -38,8 +26,11 @@
             <c-checkbox text="画像あり" :checked.sync="filter.status.hasImage" />
             <c-checkbox text="曲紹介あり" :checked.sync="filter.status.hasDescription" />
             <c-checkbox text="お気に入り済み" :checked.sync="filter.status.is_bookmarked" />
-            <c-button small warning label="新規追加" @c-click="addSongHandler" style="margin-left: 30%" />
-            <c-button small warning label="Spotifyで検索して新規追加" @c-click="getRedirectURL" style="margin-left: 30%" />
+        </div>
+        <div>
+            <c-button small warning label="Spotifyで検索して曲を追加" @c-click="getRedirectURL" style="margin-left: 10px; margin-right: 7px" />
+            <c-button small warning label="曲を追加 (Spotifyを利用しない)" @c-click="addSongHandler" style="background-color: #E6FFE9" />
+            <p style="font-size: 13px">※「Spotifyで検索して曲を追加」について、Spotifyの無料アカウントをお持ちでない場合でもボタンクリック後に無料登録することでご利用できます。</p>
         </div>
     </m-panel>
 </template>
@@ -73,7 +64,7 @@ export default class CSongSearch extends Vue {
         // クッキーにSpotifyのアクセストークンが入っているかい中で検索画面への遷移ルートを分ける
         let credential = this.$cookies.get('__spotify-token__')
         if (!credential) {
-            const response = await this.$axios.$get('/api/getRedirectUrl').catch((e) => {
+            const response = await this.$axios.$get('/api/get-redirect-url').catch((e) => {
                 console.log('アクセストークン取得失敗')
             })
             window.location.href = response

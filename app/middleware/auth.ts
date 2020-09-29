@@ -29,7 +29,7 @@ export default async function({ app, route, redirect, store, $axios, $cookies }:
         const user = await $axios.$get('/api/user')
         store.dispatch('user/setUser', user)
         await store.dispatch('user/sync', user)
-        // await store.dispatch('song/sync')
+        await store.dispatch('song/sync')
     } else {
         return redirect('/user/signin')
     }

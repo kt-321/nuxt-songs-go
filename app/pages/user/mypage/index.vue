@@ -1,24 +1,11 @@
 <template>
     <m-page class="page-mypage">
-        <pre>{{  profileModel }}</pre>
-        <c-message v-if="avatorUpdated" success>アイコンを変更しました</c-message>
         <c-message v-if="profileUpdated" success>プロフィールを変更しました</c-message>
         <m-column>
             <div class="avator" style="text-align: center">
                 <c-error :errors.sync="iconErrors" />
                 <img v-if="profileModel && profileModel.image_url" class="avator__icon" :src="$store.getters['user/user'].image_url" />
                 <img v-else class="avator__icon" src="/img/user-icon.png">
-                <div>
-                    <input
-                        class="avator__input"
-                        type="file"
-                        id="avator-input"
-                        accept="image/png,image/jpeg,image/gif"
-                        v-on:change="uploadAvator"
-                        style="display: none"
-                    />
-                    <!-- <c-button class="avator__button" label="アイコン変更" small success @c-click="selectAvator" /> -->
-                </div>
             </div>
             <m-form v-if="profileModel" title="プロフィール設定" bordered>
                 <c-error :errors.sync="profileErrors" />
