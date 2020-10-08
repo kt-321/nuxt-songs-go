@@ -46,6 +46,13 @@
                 @c-click="uploadButtonHandler"
             /> -->
             <c-button
+                success
+                small
+                block
+                label="曲詳細画面へ"
+                @c-click="$router.push(`/song/${song.id}`)"
+            />
+            <c-button
                 v-if="song.userId === $store.getters['user/user'].id"
                 small
                 block
