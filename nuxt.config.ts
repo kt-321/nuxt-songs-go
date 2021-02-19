@@ -56,7 +56,7 @@ const config: Configuration = {
         ['cookie-universal-nuxt', { alias: 'cookies' }]
     ],
     axios: {
-        baseURL: 'http://your-songs-laravel.site',
+        baseURL: 'http://your-songs-go.com',
         // baseURL: 'http://localhost:3000',
         prefix: '/api'
     },
@@ -64,7 +64,8 @@ const config: Configuration = {
         '/api': {
             // 一時的に変更
             // target: 'http://localhost:8082',
-            target: 'http://your-songs-laravel.site',
+            target: 'http://your-songs-go.com',
+            // target: 'http://your-songs-laravel.site',
             // pathRewrite: {
             //   '^/api' : '/'
             //   }
