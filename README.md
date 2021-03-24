@@ -5,7 +5,7 @@
 - Spotifyの無料アカウントを作ってお持ちであれば、Spotifyで曲を検索して投稿することができます。
 
 ## アプリケーションURL
-http://your-songs-laravel.site
+http://your-songs-go.com
 
 ## バックエンド側のコード（Golang）
 - https://github.com/kt-321/golang-songs
