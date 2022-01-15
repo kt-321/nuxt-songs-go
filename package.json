@@ -30,7 +30,7 @@
     "lint": "^0.7.0",
     "lodash": "^4.17.15",
     "luxon": "^1.22.0",
-    "marked": "^0.8.0",
+    "marked": "^4.0.10",
     "moment": "^2.24.0",
     "nuxt": "latest",
     "nuxt-property-decorator": "^2.5.0",
